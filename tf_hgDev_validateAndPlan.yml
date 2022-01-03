@@ -1,0 +1,30 @@
+trigger: none
+
+pool: "Azure Infrastructure"
+
+stages :
+- stage: install
+  displayName: Installing Terraform...
+  jobs:
+  - job: install
+    continueOnError: false
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.3'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'hg-dev (6d48148c-8a32-4c4f-b1dd-3a5da554c595)'
+        backendAzureRmResourceGroupName: 'hg-dev-wus2-mgt-rg'
+        backendAzureRmStorageAccountName: 'hgdevwus2mgtsa'
+        backendAzureRmContainerName: 'terraform'
+        backendAzureRmKey: 'terraform.tfstate'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        commandOptions: '-out tfplan'
+        environmentServiceNameAzureRM: ''
+    

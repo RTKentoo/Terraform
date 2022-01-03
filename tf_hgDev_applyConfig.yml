@@ -1,0 +1,18 @@
+trigger: none
+
+pool: "Azure Infrastructure"
+
+stages :
+- stage: apply
+  displayName: Applying Terraform configuration...
+  jobs:
+  - job: apply
+    continueOnError: false
+    steps:
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        commandOptions: '--auto-approve'
+        environmentServiceNameAzureRM: ''
+    
