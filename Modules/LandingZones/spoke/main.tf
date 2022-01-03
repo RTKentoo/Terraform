@@ -15,7 +15,7 @@ provider "azurerm" {
 
 provider "azurerm" {
   features {}
-  subscription_id = "512061a1-3d07-48a2-8223-decb4700d980"
+  subscription_id = ""
   alias = "hg-hub"
 }
 
@@ -89,7 +89,7 @@ resource "azurerm_virtual_network_peering" "toHG" {
   name = "${var.company_initials}-${var.environment}-${var.region_initials}-hg-hub-wus2-peer"
   resource_group_name = azurerm_resource_group.network_rg.name
   virtual_network_name = azurerm_virtual_network.network_vnet.name
-  remote_virtual_network_id = "/subscriptions/512061a1-3d07-48a2-8223-decb4700d980/resourceGroups/hg-hub-wus2-net-rg/providers/Microsoft.Network/virtualNetworks/hg-hub-wus2-vnet"
+  remote_virtual_network_id = "//resourceGroups/hg-hub-wus2-net-rg/providers/Microsoft.Network/virtualNetworks/hg-hub-wus2-vnet"
   allow_gateway_transit = true
 }
 
